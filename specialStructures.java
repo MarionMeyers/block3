@@ -73,5 +73,17 @@ public class specialStructures
 			return false; 
 	}
 	
+	public static boolean Circle(int[]aSubgraph, altForm f)
+	{
+
+		for(int i=0; i<aSubgraph.length; i++)
+		{
+			if(f.adjacent[aSubgraph[i]].length != 2){
+			return false; }
+		}
+		
+		return true;
+	}
+	
 	
 }
