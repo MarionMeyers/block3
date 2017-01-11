@@ -18,7 +18,7 @@ class ColEdge
 public class ReadGraphMarion
 {
 
-    public final static boolean DEBUG = true;
+    public final static boolean DEBUG = false;
 
     public final static String COMMENT = "//";
     
@@ -138,7 +138,7 @@ public class ReadGraphMarion
 
                     AFOv003.graphFullConvert(eFix, seen, f);
 
-                    AFOv003.printAltForm(f);
+                    //AFOv003.printAltForm(f);
 
                     int[][] sg = AFOv003.findSubGraphInt(f);
 
@@ -148,6 +148,50 @@ public class ReadGraphMarion
                             System.out.print("// g[" + i + "]: ");
                             AFOv003.printIntArray(sg[i]);
                     }
+                    
+                    /*FIND TREES IN GRAPH*/
+                    int countTrees=0; 
+                    for(int i=0; i<sg.length; i++)
+                    {
+                    	 if(specialStructures.findTree(sg[i],f) == true)
+                    	 {
+                    		if(DEBUG) 
+                    			System.out.println("this is a tree");
+                    		
+                    		 countTrees++; 
+                    	 }
+                    	 else
+                         {
+                         	if(DEBUG)
+                         		System.out.println("this is not a tree");
+                         }
+                         
+                    }
+                   	System.out.println("There are "+countTrees+"trees");
+                   
+                    /*FIND COMPLETE GRAPHS*/
+                    int countComp=0;
+                    for(int i=0; i<sg.length; i++)
+                    {
+                    	 if(specialStructures.findCompleteGraph(sg[i],f) == true)
+                    	 {
+                    		 if(DEBUG)
+                    			System.out.println("this is a complete graph");
+                    		 
+                    		countComp++;
+                    		
+                    	 }
+                    	 else
+                         {
+                         	if(DEBUG)
+                         		System.out.println("this is not complete");
+                         }
+                         
+                    }
+                    
+                  
+                	System.out.println("There are "+countComp+" complete graphs");
+                   
 
 
             }

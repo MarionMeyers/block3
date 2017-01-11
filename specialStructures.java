@@ -1,5 +1,6 @@
 public class specialStructures
 {
+	private static boolean DEBUG = true; 
 	/*A graph is CONNECTED when there is a path between every pair of vertices. 
 	In a connected graph, there are no unreachable vertices.
 	A graph that is not connected is disconnected. ...
@@ -11,13 +12,10 @@ public class specialStructures
 	
 	
 	//TRUE IF SUBGRAPH IS A TREE, FALSE IF NOT
-	public boolean findTree(int[][]aSubgraph)
+	//because we know that the subgraph is a connected graph, the algorithm to determine if it's a tree
+	//becomes very simple because we actually only need to check if there s n-1 edges (n = number of nodes)
+	public static boolean findTree(int[]aSubgraph, altForm f)
 	{
-		//restrictions for f to be a tree
-		//- there exists only one path for each pair of vertices
-		
-		//- Any connected graph with n vertices and (n-1) edges is a tree
-		//- f is a tree iff it is minimally connected
 		
 		//NUMBER OF VERTICES AND EDGES
 		int numVertices = aSubgraph.length; 
@@ -27,21 +25,52 @@ public class specialStructures
 		//calculate the edges
 		for(int i=0; i<aSubgraph.length; i++)
 		{
-			numEdges+=(aSubgraph[i].length);
+			numEdges+=(f.adjacent[aSubgraph[i]].length);
 		}
 		
 		numEdges=(numEdges/2);
+		if(DEBUG)
+		{
+			System.out.println("number of edges is : "+numEdges);
+			System.out.println("number of vertices is : "+numVertices);
+		}
+		
+		
 		
 		
 		//IF A SUBGRAPH HAS N NODES AND N-1 EDGES, IT IS A TREE
-		if((numEdges-1)!=numVertices)
+		
+		//not a tree
+		if(numEdges!= (numVertices-1))
 		{
 			return false; 
 		}
-		
+		//tree --> chromatic number = 2
 		else
+		{
 			return true; 
- 
+		}
+			
+	}
+	
+	/*If a graph is complete, chromatic number = number of vertices*/
+	public static boolean findCompleteGraph(int[]aSubgraph, altForm f)
+	{
+		int numVertices = aSubgraph.length; 
+		boolean complete = true; 
+		
+		for(int i=0; i<aSubgraph.length; i++)
+		{
+			if(f.adjacent[aSubgraph[i]].length != (numVertices-1))
+				complete = false; 
+		}
+		
+		//The graph is complete, chrom number = numb vertices
+		if(complete==true)
+			return true;
+		//not complete
+		else
+			return false; 
 	}
 	
 	
